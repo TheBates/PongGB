@@ -24,6 +24,6 @@ void HardwareInit();
 void PrintAt(uint8_t x, uint8_t y, char* str);
 void ClearText(uint8_t x, uint8_t y, char* str);
 void WaitForButton(uint8_t button);
-ButtonState DebounceButton(uint8_t button, uint8_t* ticks, ButtonState* lastState);
+ButtonState DebounceButton(DebouncedButton* button);
 
 #endif

@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 #include <gb/gb.h>
+#include "helper.h"
 
 typedef struct {
     uint8_t x;
@@ -21,11 +22,10 @@ typedef struct {
     PongPaddle p1;
     PongPaddle p2;
     PongBall ball;
+    DebouncedButton pauseBtn;
     uint8_t input;
     uint8_t done;
     uint8_t paused;
-    uint8_t pausedTicks;
-    uint8_t pausedBtnState;
 } PongState;
 
 void InitGame(PongState* state, uint8_t resetScore);

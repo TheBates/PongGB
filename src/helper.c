@@ -33,28 +33,27 @@ void WaitForButton(uint8_t button)
     }
 }
 
-ButtonState DebounceButton(uint8_t button, uint8_t* ticks, ButtonState* lastState)
+ButtonState DebounceButton(DebouncedButton* button)
 {
     const uint8_t pressThres = 3;
     const uint8_t releaseThres = 1;
-    uint8_t curTicks = (*ticks);
 
     ButtonState state = BUTTON_IDLE;
     uint8_t buttons = joypad();
-    uint8_t buttonDown = (buttons & button);
+    uint8_t buttonDown = (buttons & button->code);
 
-    if(buttonDown && (curTicks < pressThres))
+    if(buttonDown && (button->ticks < pressThres))
     {
-        curTicks++;
+        button->ticks++;
     }
-    else if((!buttonDown) && (curTicks > 0))
+    else if((!buttonDown) && (button->ticks > 0))
     {
-        curTicks--;
+        button->ticks--;
     }
 
-    if(curTicks >= pressThres)
+    if(button->ticks >= pressThres)
     {
-        if((*lastState) == BUTTON_IDLE)
+        if(button->state == BUTTON_IDLE)
         {
             state = BUTTON_PRESS;
         }
@@ -63,9 +62,9 @@ ButtonState DebounceButton(uint8_t button, uint8_t* ticks, ButtonState* lastStat
             state = BUTTON_HELD;
         }
     }
-    else if(curTicks <= releaseThres)
+    else if(button->ticks <= releaseThres)
     {
-        if((*lastState) == BUTTON_PRESS)
+        if(button->state == BUTTON_PRESS)
         {
             state = BUTTON_RELEASE;
         }
@@ -75,8 +74,7 @@ ButtonState DebounceButton(uint8_t button, uint8_t* ticks, ButtonState* lastStat
         }
     }
 
-    *ticks = curTicks;
-    *lastState = state;
+    button->state = state;
 
     return state;
 }

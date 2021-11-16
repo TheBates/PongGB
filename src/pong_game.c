@@ -1,5 +1,4 @@
 #include "pong_game.h"
-#include "helper.h"
 
 const uint8_t P1_START_X = 16;
 const uint8_t P2_START_X = 152;
@@ -25,9 +24,11 @@ void InitGame(PongState* state, uint8_t resetScore)
     state->ball.x = B_START_X;
     state->ball.y = B_START_Y;
 
+    state->pauseBtn.code  = J_START;
+    state->pauseBtn.ticks = 0;
+    state->pauseBtn.state = BUTTON_IDLE;
+
     state->paused = 0;
-    state->pausedTicks = 0;
-    state->pausedBtnState = BUTTON_IDLE;
 
     if(resetScore)
     {
@@ -44,9 +45,7 @@ void UpdateInput(PongState* state, uint8_t input)
 {
     state->input = input;
 
-    if(DebounceButton(  J_START,
-                        &state->pausedTicks,
-                        &state->pausedBtnState) == BUTTON_PRESS)
+    if(DebounceButton(&state->pauseBtn) == BUTTON_PRESS)
     {
         state->paused = !state->paused;
     }
