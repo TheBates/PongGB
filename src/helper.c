@@ -32,3 +32,51 @@ void WaitForButton(uint8_t button)
         wait_vbl_done();
     }
 }
+
+ButtonState DebounceButton(uint8_t button, uint8_t* ticks, ButtonState* lastState)
+{
+    const uint8_t pressThres = 3;
+    const uint8_t releaseThres = 1;
+    uint8_t curTicks = (*ticks);
+
+    ButtonState state = BUTTON_IDLE;
+    uint8_t buttons = joypad();
+    uint8_t buttonDown = (buttons & button);
+
+    if(buttonDown && (curTicks < pressThres))
+    {
+        curTicks++;
+    }
+    else if((!buttonDown) && (curTicks > 0))
+    {
+        curTicks--;
+    }
+
+    if(curTicks >= pressThres)
+    {
+        if((*lastState) == BUTTON_IDLE)
+        {
+            state = BUTTON_PRESS;
+        }
+        else
+        {
+            state = BUTTON_HELD;
+        }
+    }
+    else if(curTicks <= releaseThres)
+    {
+        if((*lastState) == BUTTON_PRESS)
+        {
+            state = BUTTON_RELEASE;
+        }
+        else
+        {
+            state = BUTTON_IDLE;
+        }
+    }
+
+    *ticks = curTicks;
+    *lastState = state;
+
+    return state;
+}

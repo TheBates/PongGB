@@ -12,18 +12,22 @@ const uint8_t B_START_Y     = 72;
 const uint8_t B_START_SPEED = 1;
 const uint8_t B_MAX_SPEED   = 10;
 
-const uint8_t GAME_MAX_SCORE = 10;
+const uint8_t GAME_MAX_SCORE  = 10;
 
 void InitGame(PongState* state, uint8_t resetScore)
 {
-    state->p1.x       = P1_START_X;
-    state->p1.y       = P_START_Y;
+    state->p1.x   = P1_START_X;
+    state->p1.y   = P_START_Y;
 
-    state->p2.x       = P2_START_X;
-    state->p2.y       = P_START_Y;
+    state->p2.x   = P2_START_X;
+    state->p2.y   = P_START_Y;
 
-    state->ball.x      = B_START_X;
-    state->ball.y      = B_START_Y;
+    state->ball.x = B_START_X;
+    state->ball.y = B_START_Y;
+
+    state->paused = 0;
+    state->pausedTicks = 0;
+    state->pausedBtnState = BUTTON_IDLE;
 
     if(resetScore)
     {
@@ -39,6 +43,13 @@ void InitGame(PongState* state, uint8_t resetScore)
 void UpdateInput(PongState* state, uint8_t input)
 {
     state->input = input;
+
+    if(DebounceButton(  J_START,
+                        &state->pausedTicks,
+                        &state->pausedBtnState) == BUTTON_PRESS)
+    {
+        state->paused = !state->paused;
+    }
 }
 
 void UpdatePaddles(PongState* state)

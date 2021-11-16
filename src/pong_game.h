@@ -23,6 +23,9 @@ typedef struct {
     PongBall ball;
     uint8_t input;
     uint8_t done;
+    uint8_t paused;
+    uint8_t pausedTicks;
+    uint8_t pausedBtnState;
 } PongState;
 
 void InitGame(PongState* state, uint8_t resetScore);

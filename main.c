@@ -21,6 +21,7 @@ void main(void)
     uint8_t hit = 0;
     uint8_t scored = 0;
     uint8_t reset = 1;
+    uint8_t buttons;
 
     InitSprites();
     HardwareInit();
@@ -40,20 +41,25 @@ void main(void)
 
         while(!scored)
         {
-            UpdateInput(&state, joypad());
-            UpdatePaddles(&state);
-            hit = UpdateBall(&state);
+            buttons = joypad();
+            UpdateInput(&state, buttons);
 
-            if(!hit)
+            if(!state.paused)
             {
-                scored = UpdateScore(&state);
-            }
-            else
-            {
-                //
-            }
+                UpdatePaddles(&state);
+                hit = UpdateBall(&state);
 
-            UpdateSprites(&state);
+                if(!hit)
+                {
+                    scored = UpdateScore(&state);
+                }
+                else
+                {
+                    //
+                }
+
+                UpdateSprites(&state);
+            }
 
             // Done processing, yield CPU and wait for start of next frame
             wait_vbl_done();
