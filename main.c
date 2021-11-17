@@ -1,5 +1,9 @@
 #include "helper.h"
 #include "draw.h"
+#include "sound.h"
+
+const char* scoreFormat = "%d      %d";
+const char* serveText = "Press 'A' to Serve!";
 
 void ShowTitleScreen()
 {
@@ -10,9 +14,16 @@ void ShowTitleScreen()
 
 void ServePrompt()
 {
-    PrintAt(0, 0, "'A' to Serve!");
+    PrintAt(0, 16, serveText);
     WaitForButton(J_A);
-    ClearText(0, 0, "'A' to Serve!");
+    ClearText(0, 16, serveText);
+}
+
+void DrawScore(PongState* state)
+{
+    char buf[32];
+    sprintf(buf, scoreFormat, state->p1.score, state->p2.score);
+    PrintAt(6, 0, buf);
 }
 
 void main(void)
@@ -31,11 +42,12 @@ void main(void)
 
     while(1)
     {
-
 		// Game main loop processing goes here
         InitGame(&state, reset);
         UpdateSprites(&state);
+        DrawScore(&state);
         ServePrompt();
+
         reset = 0;
         scored = 0;
 
@@ -55,7 +67,7 @@ void main(void)
                 }
                 else
                 {
-                    //
+                    PaddleHitSound(hit);
                 }
 
                 UpdateSprites(&state);
@@ -65,6 +77,7 @@ void main(void)
             wait_vbl_done();
         }
 
+        ScoreSound();
         reset = state.done;
     }
 }

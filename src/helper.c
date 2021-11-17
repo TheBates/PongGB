@@ -2,17 +2,24 @@
 
 void HardwareInit()
 {
+    // Init graphics hardware
     BGP_REG = OBP0_REG = OBP1_REG = 0xE4;
-    SHOW_BKG; SHOW_SPRITES;
+    SHOW_BKG;
+    SHOW_SPRITES;
+
+    // Init sound hardware
+    NR52_REG = 0x80; // Power on audio subsystem
+    NR50_REG = 0x77; // Set left and right channels to max volume
+    NR51_REG = 0xFF; // Enable all sound channels
 }
 
-void PrintAt(uint8_t x, uint8_t y, char* str)
+void PrintAt(uint8_t x, uint8_t y, const char* str)
 {
     gotoxy(x,y);
     puts(str);
 }
 
-void ClearText(uint8_t x, uint8_t y, char* str)
+void ClearText(uint8_t x, uint8_t y, const char* str)
 {
     int i;
     gotoxy(x,y);

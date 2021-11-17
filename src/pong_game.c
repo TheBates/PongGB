@@ -104,7 +104,7 @@ void UpdatePaddleP2(PongState* state)
 
 uint8_t UpdateBall(PongState* state)
 {
-    uint8_t hit = 0;
+    uint8_t hitPaddle = 0;
 
     state->ball.x += state->ball.speedX;
     state->ball.y += state->ball.speedY;
@@ -124,7 +124,7 @@ uint8_t UpdateBall(PongState* state)
             (state->ball.speedX < 0))
         {
             state->ball.speedX = -state->ball.speedX;
-            hit = 1;
+            hitPaddle = 1;
         }
     }
     else if(state->ball.x > (P2_START_X - 8))
@@ -134,11 +134,11 @@ uint8_t UpdateBall(PongState* state)
             (state->ball.speedX > 0))
         {
             state->ball.speedX = -state->ball.speedX;
-            hit = 1;
+            hitPaddle = 2;
         }
     }
 
-    return hit;
+    return hitPaddle;
 }
 
 uint8_t UpdateScore(PongState* state)

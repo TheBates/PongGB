@@ -21,8 +21,8 @@ typedef struct {
 } DebouncedButton;
 
 void HardwareInit();
-void PrintAt(uint8_t x, uint8_t y, char* str);
-void ClearText(uint8_t x, uint8_t y, char* str);
+void PrintAt(uint8_t x, uint8_t y, const char* str);
+void ClearText(uint8_t x, uint8_t y, const char* str);
 void WaitForButton(uint8_t button);
 ButtonState DebounceButton(DebouncedButton* button);
 
