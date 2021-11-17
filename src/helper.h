@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
+#include <rand.h>
 
 typedef enum  {
     BUTTON_RELEASE = 0,
@@ -25,5 +26,6 @@ void PrintAt(uint8_t x, uint8_t y, const char* str);
 void ClearText(uint8_t x, uint8_t y, const char* str);
 void WaitForButton(uint8_t button);
 ButtonState DebounceButton(DebouncedButton* button);
+uint16_t GetRandom();
 
 #endif

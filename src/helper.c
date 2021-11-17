@@ -85,3 +85,12 @@ ButtonState DebounceButton(DebouncedButton* button)
 
     return state;
 }
+
+uint16_t GetRandom()
+{
+    uint16_t seed = sys_time;
+    seed |= (uint16_t)DIV_REG << 8;
+    initrand(seed);
+
+    return rand();
+}

@@ -24,6 +24,9 @@ void InitGame(PongState* state, uint8_t resetScore)
     state->ball.x = B_START_X;
     state->ball.y = B_START_Y;
 
+    state->ball.speedX = (GetRandom() % 2) ? B_START_SPEED : -B_START_SPEED;
+    state->ball.speedY = (GetRandom() % 2) ? B_START_SPEED : -B_START_SPEED;
+
     state->pauseBtn.code  = J_START;
     state->pauseBtn.ticks = 0;
     state->pauseBtn.state = BUTTON_IDLE;
@@ -32,9 +35,6 @@ void InitGame(PongState* state, uint8_t resetScore)
 
     if(resetScore)
     {
-        state->ball.speedX = B_START_SPEED;
-        state->ball.speedY = B_START_SPEED;
-
         state->p1.score = 0;
         state->p2.score = 0;
         state->done = 0;
@@ -70,9 +70,9 @@ void UpdatePaddleP1(PongState* state)
     else if(state->input & J_DOWN)
     {
         state->p1.y += 2;
-        if(state->p1.y < P_MIN_Y)
+        if(state->p1.y > P_MAX_Y)
         {
-            state->p1.y = P_MIN_Y;
+            state->p1.y = P_MAX_Y;
         }
     }
 }
@@ -95,9 +95,9 @@ void UpdatePaddleP2(PongState* state)
     if(distY < moveThres)
     {
         state->p2.y += 2;
-        if(state->p2.y < P_MIN_Y)
+        if(state->p2.y > P_MAX_Y)
         {
-            state->p2.y = P_MIN_Y;
+            state->p2.y = P_MAX_Y;
         }
     }
 }
