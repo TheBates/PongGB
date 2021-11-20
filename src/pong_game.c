@@ -3,7 +3,7 @@
 const uint8_t P1_START_X = 16;
 const uint8_t P2_START_X = 152;
 const uint8_t P_START_Y  = 64;
-const uint8_t P_MAX_Y    = 100;
+const uint8_t P_MAX_Y    = 124;
 const uint8_t P_MIN_Y    = 28;
 
 const uint8_t B_START_X     = 84;
