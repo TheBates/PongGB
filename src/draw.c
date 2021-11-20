@@ -20,6 +20,16 @@ void InitSprites()
     InitBallSprite();
 }
 
+void InitBackground()
+{
+    set_bkg_data(0x66, 3, PongTiles);
+    set_bkg_tiles(  0,
+                    0,
+                    PongBackgroundWidth,
+                    PongBackgroundHeight,
+                    PongBackground);
+}
+
 void InitPaddleSprites()
 {
     int i;

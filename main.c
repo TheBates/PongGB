@@ -14,16 +14,16 @@ void ShowTitleScreen()
 
 void ServePrompt()
 {
-    PrintAt(0, 16, serveText);
+    PrintAt(0, 14, serveText);
     WaitForButton(J_A);
-    ClearText(0, 16, serveText);
+    ClearText(0, 14, serveText);
 }
 
 void DrawScore(PongState* state)
 {
     char buf[32];
     sprintf(buf, scoreFormat, state->p1.score, state->p2.score);
-    PrintAt(6, 0, buf);
+    PrintAt(6, 2, buf);
 }
 
 void main(void)
@@ -39,6 +39,7 @@ void main(void)
     ShowTitleScreen();
 
     cls();
+    InitBackground();
 
     while(1)
     {
