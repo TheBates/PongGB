@@ -7,8 +7,8 @@ const char* serveText = "Press 'A' to Serve!";
 
 void ShowTitleScreen()
 {
-    PrintAt(0, 0, "Pong");
-    PrintAt(0, 2, "Press Start");
+    PrintAt(0, 14, "Press Start");
+    InitLogo();
     WaitForButton(J_START);
 }
 

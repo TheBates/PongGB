@@ -14,15 +14,25 @@ static uint8_t BALL_TILE_INDEX;
 void InitSprites()
 {
     BALL_TILE_INDEX = NUM_PADDLES + 1;
-    // Load SpriteData into VRAM
+
     set_sprite_data(0, 4, SpriteData);
+    set_bkg_data(0x66, 3, PongTiles);
+
     InitPaddleSprites();
     InitBallSprite();
 }
 
+void InitLogo()
+{
+    set_bkg_tiles(  0,
+                    0,
+                    PongLogoWidth,
+                    PongLogoHeight,
+                    PongLogo);
+}
+
 void InitBackground()
 {
-    set_bkg_data(0x66, 3, PongTiles);
     set_bkg_tiles(  0,
                     0,
                     PongBackgroundWidth,

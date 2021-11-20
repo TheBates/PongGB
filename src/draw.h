@@ -7,9 +7,11 @@
 #include "pong_game.h"
 #include "tiles.h"
 #include "background.h"
+#include "logo.h"
 
 void InitSprites();
 void InitBackground();
+void InitLogo();
 void InitPaddleSprites();
 void InitBallSprite();
 void UpdateSprites(PongState* state);
