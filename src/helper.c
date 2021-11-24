@@ -3,7 +3,7 @@
 void HardwareInit()
 {
     // Init graphics hardware
-    BGP_REG = OBP0_REG = OBP1_REG = 0xE4;
+    DISPLAY_ON;
     SHOW_BKG;
     SHOW_SPRITES;
 

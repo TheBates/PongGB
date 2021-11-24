@@ -1,6 +1,6 @@
 /*
 
- TILES.H
+ PONG_TILES.H
 
  Include File.
 
@@ -10,7 +10,7 @@
   Compression          : None.
   Counter              : None.
   Tile size            : 8 x 8
-  Tiles                : 0 to 2
+  Tiles                : 0 to 4
 
   Palette colors       : None.
   SGB Palette          : None.

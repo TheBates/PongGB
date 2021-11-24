@@ -16,7 +16,7 @@ void InitSprites()
     BALL_TILE_INDEX = NUM_PADDLES + 1;
 
     set_sprite_data(0, 4, SpriteData);
-    set_bkg_data(0x66, 3, PongTiles);
+    set_bkg_data(0x66, 5, PongTiles);
 
     InitPaddleSprites();
     InitBallSprite();
