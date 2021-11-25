@@ -2,8 +2,7 @@
 #include "draw.h"
 #include "sound.h"
 
-const char* scoreFormat = "%d      %d";
-const char* serveText = "Press 'A' to Serve!";
+const char* serveText = "Press 'A'";
 
 void ShowTitleScreen()
 {
@@ -21,9 +20,12 @@ void ServePrompt()
 
 void DrawScore(PongState* state)
 {
-    char buf[32];
-    sprintf(buf, scoreFormat, state->p1.score, state->p2.score);
-    PrintAt(6, 2, buf);
+    char bufP1[16];
+    char bufP2[16];
+    sprintf(bufP1, "%d", state->p1.score);
+    sprintf(bufP2, "%d", state->p2.score);
+    PrintAt(6, 2, bufP1);
+    PrintAt(13, 2, bufP2);
 }
 
 void main(void)
