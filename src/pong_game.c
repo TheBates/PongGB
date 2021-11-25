@@ -123,7 +123,6 @@ uint8_t UpdateBall(PongState* state)
             (state->ball.y < (state->p1.y + 24)) &&
             (state->ball.speedX < 0))
         {
-            state->ball.speedX = -state->ball.speedX;
             hitPaddle = 1;
         }
     }
@@ -133,8 +132,16 @@ uint8_t UpdateBall(PongState* state)
             (state->ball.y < (state->p2.y + 24)) &&
             (state->ball.speedX > 0))
         {
-            state->ball.speedX = -state->ball.speedX;
             hitPaddle = 2;
+        }
+    }
+
+    if(hitPaddle > 0)
+    {
+        state->ball.speedX = -state->ball.speedX;
+        if(GetRandom() % 2)
+        {
+            state->ball.speedY = -state->ball.speedY;
         }
     }
 
@@ -148,7 +155,6 @@ uint8_t UpdateScore(PongState* state)
     if(state->ball.x < state->p1.x)
     {
         state->p2.score++;
-        state->done = (state->p2.score >= GAME_MAX_SCORE) ? 1 : 0;
         goal = 1;
     }
     else if(state->ball.x > state->p2.x)
